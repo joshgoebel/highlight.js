@@ -213,7 +213,7 @@ const HLJS = function(hljs) {
       if (origin.skip) {
         mode_buffer += lexeme;
       } else {
-        if (!(origin.returnEnd || origin.excludeEnd)) {
+        if (!origin.excludeEnd) {
           mode_buffer += lexeme;
         }
         processBuffer();
@@ -236,7 +236,7 @@ const HLJS = function(hljs) {
         }
         startNewMode(end_mode.starts);
       }
-      return origin.returnEnd ? 0 : lexeme.length;
+      return lexeme.length;
     }
 
     var lastMatch = {};

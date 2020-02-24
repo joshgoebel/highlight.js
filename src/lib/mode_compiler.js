@@ -94,7 +94,12 @@ export function compileLanguage(language) {
         mode.end = /\B|\b/;
       if (mode.end)
         mode.endRe = langRe(mode.end);
-      mode.terminator_end = regex.source(mode.end) || '';
+      // returnEnd is now handled entirely by regex look-ahead
+      if (mode.returnEnd) {
+        mode.endRe = langRe(regex.lookahead(mode.endRe));
+        mode.returnEnd = null;
+      }
+      mode.terminator_end = regex.source(mode.endRe) || '';
       if (mode.endsWithParent && parent.terminator_end)
         mode.terminator_end += (mode.end ? '|' : '') + parent.terminator_end;
     }
