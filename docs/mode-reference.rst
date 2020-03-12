@@ -62,6 +62,17 @@ Regular expression starting a mode. For example a single quote for strings or tw
 If absent, ``begin`` defaults to a regexp that matches anything, so the mode starts immediately.
 
 
+after:begin
+^^^^^^^^^^^
+
+**type**: callback (matchData, response)
+
+This callback is triggered the moment a begin match is detected. ``matchData`` includes the typical regex match data; the full match, match groups, etc. The ``response`` object is used to tell the parser how it should handle the match. It can be also used to temporarily store data.
+
+- ``response.data`` - a simple object data store.  Can be used for building more complex rules where the end rule is dependent on the content of begin, etc.
+- ``response.ignoreMatch()`` - pretend as if this match never happened. The mode is not entered. Continues trying subsequent modes in the current mode's ``contains`` list
+
+
 end
 ^^^
 
@@ -77,6 +88,17 @@ matching any ``contains`` sub-modes).
 
 Sometimes a mode can end not by itself but implicitly with its containing (parent) mode.
 This is achieved with :ref:`endsWithParent <endsWithParent>` attribute.
+
+
+before:end
+^^^^^^^^^^^
+
+**type**: callback (matchData, response)
+
+This callback is triggered the moment an end match is detected. ``matchData`` includes the typical regex match data; the full match, match groups, etc. The ``response`` object is used to tell the parser how it should handle the match. It can also be used to retrieve data stored from a `begin` callback.
+
+- ``response.data`` - a simple object data store.  Can be used for building more complex rules where the end rule is dependent on the content of begin, etc.
+- ``response.ignoreMatch()`` - pretend as if this match never happened. The mode is not entered. Continues trying subsequent modes in the current mode's ``contains`` list
 
 
 beginKeywords
