@@ -30,6 +30,7 @@ module.exports = {
         output: {
           name: "hljs",
           format: "umd",
+          amd: {"id": "hljs"},
           interop: false,
         }
       },
@@ -41,8 +42,8 @@ module.exports = {
           ]
         },
         output: {
-          format: "iife",
-          outro: "return module.exports.definer || module.exports;",
+          format: "umd",
+          // outro: "return module.exports.definer || module.exports;",
           interop: false,
         }
       }

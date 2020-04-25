@@ -86,7 +86,7 @@ async function compileLanguage (language, options) {
   const output = { ...build_config.rollup.browser.output,  name: `dummyName`, file: "out.js" };
   var data = await rollupCode(input, output)
 
-  data = data.replace(IIFE_HEADER_REGEX, `hljs.registerLanguage('${language.name}', function ()`)
+  // data = data.replace(IIFE_HEADER_REGEX, `hljs.registerLanguage('${language.name}', function ()`)
 
   var original = data;
   language.module = data;
