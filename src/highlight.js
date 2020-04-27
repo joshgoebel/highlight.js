@@ -199,7 +199,7 @@ const HLJS = function(hljs) {
       return top;
     }
 
-    function endOfMode(mode, matchPlusRemainder) {
+    function endOfMode(mode, match, matchPlusRemainder) {
       let matched = regex.startsWith(mode.endRe, matchPlusRemainder);
 
       if (matched) {
@@ -220,7 +220,7 @@ const HLJS = function(hljs) {
       // even if before:end fires an `ignore` it's still possible
       // that we might trigger the end node because of a parent mode
       if (mode.endsWithParent) {
-        return endOfMode(mode.parent, matchPlusRemainder);
+        return endOfMode(mode.parent, match, matchPlusRemainder);
       }
     }
 
@@ -279,7 +279,7 @@ const HLJS = function(hljs) {
       var lexeme = match[0];
       var matchPlusRemainder = codeToHighlight.substr(match.index);
 
-      var end_mode = endOfMode(top, matchPlusRemainder);
+      var end_mode = endOfMode(top, match, matchPlusRemainder);
       if (!end_mode) { return NO_MATCH; }
 
       var origin = top;
