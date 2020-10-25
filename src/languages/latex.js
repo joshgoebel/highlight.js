@@ -124,6 +124,18 @@ export default function(hljs) {
     MAGIC_COMMENT,
     COMMENT
   ];
+  const GOBBLE_SPACES = {
+    begin: /[ \t]+(?:\r?\n[ \t]*)?|\r?\n[ \t]*/,
+    relevance: 0
+  };
+  const GOBBLE_SPACES_NO_NEWLINE = {
+    begin: /[ \t]+/,
+    relevance: 0
+  };
+  const GOBBLE_NEWLINE = {
+    begin: /\r?\n/,
+    relevance: 0
+  };
   const BRACE_GROUP_NO_VERBATIM = {
     begin: /\{/, end: /\}/,
     relevance: 0,
@@ -220,9 +232,26 @@ export default function(hljs) {
       }
     };
   };
+  const ARGS = (...modes) => {
+    const core = modes.pop()
+    return modes.reverse().reduce((acc, n) => {
+      return ARGUMENT_AND_THEN(n, acc);
+    }, core);
+  };
+  const FLAT_CHAIN = (...modes) => {
+    const core = { contains: [modes.pop()] };
+    return modes.reverse().reduce((acc, n) => {
+      return {
+        relevance: 0,
+        contains: [n],
+        starts : acc
+      };
+    }, core);
+  };
   const VERBATIM = [
     ...['verb', 'lstinline'].map(csname => CSNAME(csname, {contains: [VERBATIM_DELIMITED_EQUAL()]})),
-    CSNAME('mint', ARGUMENT_AND_THEN(ARGUMENT_M, {contains: [VERBATIM_DELIMITED_EQUAL()]})),
+    // CSNAME('mint', ARGUMENT_AND_THEN(ARGUMENT_M, {contains: [VERBATIM_DELIMITED_EQUAL()]})),
+    CSNAME('mint', FLAT_CHAIN(GOBBLE_SPACES, ARGUMENT_M[0], GOBBLE_NEWLINE, VERBATIM_DELIMITED_EQUAL())),
     CSNAME('mintinline', ARGUMENT_AND_THEN(ARGUMENT_M, {contains: [VERBATIM_DELIMITED_BRACES(), VERBATIM_DELIMITED_EQUAL()]})),
     CSNAME('url', {contains: [VERBATIM_DELIMITED_BRACES("link"), VERBATIM_DELIMITED_BRACES("link")]}),
     CSNAME('hyperref', {contains: [VERBATIM_DELIMITED_BRACES("link")]}),
@@ -234,7 +263,8 @@ export default function(hljs) {
         BEGIN_ENV(prefix + 'Verbatim' + suffix, ARGUMENT_AND_THEN(ARGUMENT_O, VERBATIM_DELIMITED_ENV(prefix + 'Verbatim' + suffix)))
       )
     ])),
-    BEGIN_ENV('minted', ARGUMENT_AND_THEN(ARGUMENT_O, ARGUMENT_AND_THEN(ARGUMENT_M, VERBATIM_DELIMITED_ENV('minted')))),
+    BEGIN_ENV('minted', ARGS(ARGUMENT_O, ARGUMENT_M, VERBATIM_DELIMITED_ENV('minted')))
+    // BEGIN_ENV('minted', ARGUMENT_AND_THEN(ARGUMENT_O, ARGUMENT_AND_THEN(ARGUMENT_M, VERBATIM_DELIMITED_ENV('minted')))),
   ];
 
   return {
