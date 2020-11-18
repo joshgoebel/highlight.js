@@ -3,8 +3,6 @@
 [![this version](https://badgen.net/badge/this%20version/v9.18.4/red)](https://github.com/highlightjs/highlight.js/blob/master/VERSION_10_UPGRADE.md)
 [![supported](https://badgen.net/badge/supported/no/red)](https://github.com/highlightjs/highlight.js/blob/master/VERSION_10_UPGRADE.md)
 [![vulnerabilities](https://badgen.net/badge/vulnerabilities/possible/red)](https://github.com/highlightjs/highlight.js/blob/master/SECURITY.md)
-
-
 [![latest version](https://badgen.net/npm/v/highlight.js?label=latest)](https://www.npmjs.com/package/highlight.js)
 [![beta](https://badgen.net/npm/v/highlight.js/beta)](https://www.npmjs.com/package/highlight.js)
 [![slack](https://badgen.net/badge/icon/slack?icon=slack&label&color=pink)](https://join.slack.com/t/highlightjs/shared_invite/zt-jatdlkw4-h3LdjU5rC23t7aQ6zqoxzw)
@@ -13,7 +11,7 @@
 
 ---
 
-### <span style="color:red">Important:</span> Version 9 is no longer supported.
+### Important: Version 9 is no longer supported.
 
 Version 9 has reached end-of-support and will receive no future updates.
 It may include security vulnerabiites.  Please upgrade to version 10.
@@ -364,7 +362,7 @@ it can be added manually:
 ```html
 <script
  charset="UTF-8"
- src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/languages/go.min.js"></script>
+ src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.4/languages/go.min.js"></script>
 ```
 
 **On Almond.** You need to use the optimizer to give the module a name. For
