@@ -1,8 +1,8 @@
-import hljs from "#hljs";
+import hljs from "../../build/highlight.js";
 
-let major = parseInt(majorVersion=hljs.versionString.split("."))
+const major = parseInt(hljs.versionString.split("."));
 if (major != 10) {
-  process.exit(1)
+  process.exit(1);
 }
 
-console.log("Pass: browser build works with Node.js just fine.")
+console.log("Pass: browser build works with Node.js just fine.");

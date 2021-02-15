@@ -1,3 +1,5 @@
+'use strict';
+ 
 const hljs = require('#hljs');
 
 describe('.highlight()', () => {
