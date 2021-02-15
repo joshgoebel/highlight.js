@@ -4,22 +4,22 @@ hljs.debugMode(); // tests run in debug mode so errors are raised
 
 // Tests specific to the API exposed inside the hljs object.
 // Right now, that only includes tests for several common regular expressions.
-await import('./api/index.js');
+import './api/index.js';
 
 // Test weird bugs we've fixed over time
-await import("./parser/index.js");
+import "./parser/index.js";
 
 // Tests for auto detection of languages via `highlightAuto`.
-await import('./detect/index.js');
+import './detect/index.js';
 
 // HTML markup tests for particular languages. Usually when there is an
 // incorrect highlighting of one language, once the bug get fixed, the
 // expected markup will be added into the `test/markup` folder to keep
 // theses highlighting errors from cropping up again.
-await import('./markup/index.js');
+import './markup/index.js';
 
 // check regex for fatal issues like exponential backtracking, etc
-await import('./regex/index.js');
+import './regex/index.js';
 
 // Tests meant for the browser only. Using the `test/fixtures/index.html` file
 // along with `jsdom` these tests check for things like: custom markup already
@@ -27,4 +27,5 @@ await import('./regex/index.js');
 // and several other cases. Do note that the `test/fixtures/index.html` file
 // isn't actually used to test inside a browser but `jsdom` acts as a virtual
 // browser inside of node.js and runs together with all the other tests.
-await import('./special/index.js');
+import './special/index.js';
+

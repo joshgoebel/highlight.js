@@ -1,5 +1,6 @@
 import { JSDOM } from 'jsdom';
 import * as utility from '../utility.js';
+import nested from '../fixtures/nested.js';
 
 const filename = utility.buildPath('fixtures', 'index.html');
 const { window } = await new JSDOM.fromFile(filename);
@@ -8,8 +9,7 @@ const { window } = await new JSDOM.fromFile(filename);
 export const document = window.document;
 
 // Special language to test endsWithParentVariants
-hljs.registerLanguage('nested',
-                      (await import('../fixtures/nested.js')).default);
+hljs.registerLanguage('nested', nested);
 
 // Setup hljs environment
 hljs.configure({ tabReplace: '    ' });
