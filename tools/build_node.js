@@ -52,6 +52,8 @@ async function buildPackageJSON() {
     .filter((matches) => matches)
     .map((matches) => matches[1]);
 
+  packageJson.type = 'commonjs';
+
   await fs.writeFile(`${process.env.BUILD_DIR}/package.json`, JSON.stringify(packageJson, null, 2));
 }
 

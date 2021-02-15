@@ -1,0 +1,23 @@
+import { JSDOM } from 'jsdom';
+import * as utility from '../utility.js';
+
+const filename = utility.buildPath('fixtures', 'index.html');
+const { window } = await new JSDOM.fromFile(filename);
+
+// Allows hljs to use document
+export const document = window.document;
+
+// Special language to test endsWithParentVariants
+hljs.registerLanguage('nested',
+                      (await import('../fixtures/nested.js')).default);
+
+// Setup hljs environment
+hljs.configure({ tabReplace: '    ' });
+let blocks = document.querySelectorAll('pre code');
+blocks.forEach(hljs.highlightBlock);
+
+// Setup hljs for non-`<pre><code>` tests
+hljs.configure({ useBR: true });
+
+blocks = document.querySelectorAll('.code');
+blocks.forEach(hljs.highlightBlock);
