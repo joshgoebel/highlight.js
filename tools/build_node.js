@@ -6,9 +6,9 @@ const { filter } = require("./lib/dependencies");
 const { rollupWrite } = require("./lib/bundling.js");
 const log = (...args) => console.log(...args);
 
-async function buildNodeIndex(languages) {
-  const header = "var hljs = require('./core');";
-  const footer = "module.exports = hljs;";
+async function buildNodeIndex(name, languages) {
+  const header = `import hljs from './core.mjs';`;
+  const footer = "export default hljs;";
 
   const registration = languages.map((lang) => {
     let out = '';
@@ -22,7 +22,7 @@ async function buildNodeIndex(languages) {
   });
 
   const index = `${header}\n\n${registration.join("\n")}\n\n${footer}`;
-  await fs.writeFile(`${process.env.BUILD_DIR}/lib/index.js`, index);
+  await fs.writeFile(`${process.env.BUILD_DIR}/lib/${name}.mjs`, index);
 }
 
 async function buildNodeLanguage(language) {
@@ -77,7 +77,8 @@ async function buildNode(options) {
   // filter languages for inclusion in the highlight.js bundle
   languages = filter(languages, options.languages);
 
-  await buildNodeIndex(languages);
+  await buildNodeIndex("index", languages);
+  await buildNodeIndex("common", languages.filter(l => l.categories.includes("common")));
   await buildLanguages(languages);
 
   log("Writing highlight.js");
