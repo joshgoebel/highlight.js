@@ -3,7 +3,7 @@ import * as utility from '../utility.js';
 import nested from '../fixtures/nested.js';
 
 const filename = utility.buildPath('fixtures', 'index.html');
-const { window } = await new JSDOM.fromFile(filename);
+const { window } = await JSDOM.fromFile(filename);
 
 // Allows hljs to use document
 export const document = window.document;
