@@ -18,12 +18,6 @@ async function buildNodeIndex(languages) {
     return `hljs.registerLanguage('${lang.name}', ${require});`;
   });
 
-  // legacy
-  await fs.writeFile(`${process.env.BUILD_DIR}/lib/highlight.js`,
-    "// This file has been deprecated in favor of core.js\n" +
-    "var hljs = require('./core');\n"
-  );
-
   const index = `${header}\n\n${registration.join("\n")}\n\n${footer}`;
   await fs.writeFile(`${process.env.BUILD_DIR}/lib/index.js`, index);
 }
