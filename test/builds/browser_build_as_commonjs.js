@@ -1,4 +1,4 @@
-const hljs = require("../../build/highlight");
+import hljs from "#hljs";
 
 let major = parseInt(majorVersion=hljs.versionString.split("."))
 if (major != 10) {
