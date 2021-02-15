@@ -1,5 +1,3 @@
-'use strict';
-
-require('./plain');
-require('./worker');
-require('./highlight_block_callbacks');
+await import('./plain.js');
+await import('./worker.js');
+await import('./highlight_block_callbacks.js');
