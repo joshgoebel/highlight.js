@@ -1,7 +1,7 @@
 import { document } from './document.js'
 import * as utility from '../utility.js';
 
-describe('explicit language class', () => {
+describe('explicit language class', function() {
   before(() => {
     const filename = utility.buildPath('fixtures', 'expect', 'explicit1.txt'),
           testHTML = document.querySelectorAll('#explicit-language .hljs');

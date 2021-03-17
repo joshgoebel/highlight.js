@@ -1,7 +1,7 @@
 import { document } from './document.js'
 import * as utility from '../utility.js';
 
-describe('language alias', () => {
+describe('language alias', function() {
   before(() => {
     const testHTML = document.querySelectorAll('#language-alias .hljs');
 

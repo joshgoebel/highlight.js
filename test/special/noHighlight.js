@@ -1,6 +1,6 @@
 import { document } from './document.js'
 
-describe('no highlighting', () => {
+describe('no highlighting', function() {
   before(() => {
     const testHTML = document.querySelectorAll('#no-highlight pre');
 

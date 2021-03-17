@@ -1,3 +1,5 @@
+import hljs from '#hljs';
+
 import { JSDOM } from 'jsdom';
 import * as utility from '../utility.js';
 import nested from '../fixtures/nested.js';

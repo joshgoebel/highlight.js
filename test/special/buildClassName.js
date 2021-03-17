@@ -1,6 +1,6 @@
 import { document } from './document.js'
 
-describe('block class names',  () => {
+describe('block class names',  function() {
   before( () => {
     const testHTML = document.querySelectorAll('#build-classname .hljs');
 

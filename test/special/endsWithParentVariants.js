@@ -1,7 +1,7 @@
 import { document } from './document.js'
 import * as utility from '../utility.js';
 
-describe('ends with parent variants', () => {
+describe('ends with parent variants', function() {
   before(() => {
     const filename = utility.buildPath('fixtures', 'expect', 'endsWithParentVariants.txt'),
           testHTML = document.querySelectorAll('#ends-with-parent-variants .hljs');

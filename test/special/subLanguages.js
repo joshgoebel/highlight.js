@@ -1,7 +1,7 @@
 import { document } from './document.js'
 import * as utility from '../utility.js';
 
-describe('sub-languages', () => {
+describe('sub-languages', function() {
   before(() => {
     this.block = document.querySelector('#sublanguages');
   });
