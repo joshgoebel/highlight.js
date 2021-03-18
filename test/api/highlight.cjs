@@ -1,10 +1,9 @@
 'use strict';
- 
-const hljs = require('#hljs');
 
 describe('.highlight()', () => {
-  it('should works without continuation', () => {
-    const code   = "public void moveTo(int x, int y, int z);";
+  it('should works without continuation', async () => {
+    const { default: hljs } = await import('#hljs');
+    const code = 'public void moveTo(int x, int y, int z);';
     const result = hljs.highlight('java', code, false, false);
 
     result.value.should.equal(
