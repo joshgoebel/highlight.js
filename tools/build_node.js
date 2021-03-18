@@ -7,13 +7,13 @@ const { rollupWrite } = require("./lib/bundling.js");
 const log = (...args) => console.log(...args);
 
 async function buildNodeIndex(name, languages) {
-  const header = `import hljs from './core.mjs';`;
+  const header = `import hljs from './core.js';`;
   const footer = "export default hljs;";
 
   const registration = languages.map((lang) => {
     let out = '';
     const importName = "L_" + lang.name.replace("-","_")
-    let require = `import ${importName} from './languages/${lang.name}.mjs';`;
+    let require = `import ${importName} from './languages/${lang.name}.js';`;
     // TODO: break this with v11? All modules must export default?
     if (lang.loader) {
       require = require += `.${lang.loader}`;
@@ -22,7 +22,7 @@ async function buildNodeIndex(name, languages) {
   });
 
   const index = `${header}\n\n${registration.join("\n")}\n\n${footer}`;
-  await fs.writeFile(`${process.env.BUILD_DIR}/lib/${name}.mjs`, index);
+  await fs.writeFile(`${process.env.BUILD_DIR}/lib/${name}.js`, index);
 }
 
 async function buildNodeLanguage(language) {
@@ -39,7 +39,7 @@ async function buildNodeHighlightJS() {
 
 async function buildPackageJSON() {
   const packageJson = require("../package");
-  packageJson.type = 'commonjs';
+  packageJson.type = 'module';
   await fs.writeFile(`${process.env.BUILD_DIR}/package.json`, JSON.stringify(packageJson, null, 2));
 }
 
