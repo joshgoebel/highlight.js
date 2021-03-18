@@ -12,13 +12,13 @@ async function buildNodeIndex(name, languages) {
 
   const registration = languages.map((lang) => {
     let out = '';
-    const importName = "L_" + lang.name.replace("-","_")
+    const importName = "L_" + lang.name.replace(/-/g, "_");
     let require = `import ${importName} from './languages/${lang.name}.js';`;
     // TODO: break this with v11? All modules must export default?
     if (lang.loader) {
       require = require += `.${lang.loader}`;
     }
-    return `hljs.registerLanguage('${lang.name}', ${require});`;
+    return `${require}; hljs.registerLanguage('${lang.name}', ${importName});`;
   });
 
   const index = `${header}\n\n${registration.join("\n")}\n\n${footer}`;
