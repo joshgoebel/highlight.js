@@ -31,6 +31,12 @@ async function buildNodeLanguage(language) {
   await rollupWrite(input, output);
 }
 
+async function buildNodeBundle() {
+  const input = { ...config.rollup.node.input, input: `${process.env.BUILD_DIR}/lib/index.js` };
+  const output = { ...config.rollup.node.output, file: `${process.env.BUILD_DIR}/compat.cjs`, format: 'cjs' };
+  await rollupWrite(input, output);
+}
+
 async function buildNodeHighlightJS() {
   const input = { ...config.rollup.node.input, input: `src/highlight.js` };
   const output = { ...config.rollup.node.output, file: `${process.env.BUILD_DIR}/lib/core.js` };
@@ -83,6 +89,9 @@ async function buildNode(options) {
 
   log("Writing highlight.js");
   await buildNodeHighlightJS();
+  
+  log("Writing compat.cjs");
+  await buildNodeBundle();
 }
 
 module.exports.build = buildNode;

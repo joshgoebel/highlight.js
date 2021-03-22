@@ -1,6 +1,7 @@
 'use strict';
- 
-const hljs = require('#hljs');
+
+const hljs = require('#hljs/compat');
+
 
 describe('.highlight()', () => {
   it('should works without continuation', () => {

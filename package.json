@@ -36,6 +36,7 @@
   "types": "./types/index.d.ts",
   "imports": {
     "#hljs": "./build/lib/index.js",
+    "#hljs/compat": "./build/compat.cjs",
     "#tools/*": "./tools/lib/*.js"
   },
   "type": "module",
