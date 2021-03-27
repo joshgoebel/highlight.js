@@ -18,18 +18,26 @@ export default function(hljs) {
       // Specific
       {
         begin: /::=/,
-        end: /$/,
-        contains: [
-          {
-            begin: /</,
-            end: />/
-          },
-          // Common
-          hljs.C_LINE_COMMENT_MODE,
-          hljs.C_BLOCK_COMMENT_MODE,
-          hljs.APOS_STRING_MODE,
-          hljs.QUOTE_STRING_MODE
-        ]
+        className: "operator",
+        starts: {
+          end: /$/,
+          contains: [
+            {
+              begin: /</,
+              end: />/
+            },
+            {
+              className: "operator",
+              match: /\|/,
+              relevance: 0
+            },
+            // Common
+            hljs.C_LINE_COMMENT_MODE,
+            hljs.C_BLOCK_COMMENT_MODE,
+            hljs.APOS_STRING_MODE,
+            hljs.QUOTE_STRING_MODE
+          ]
+        }
       }
     ]
   };
