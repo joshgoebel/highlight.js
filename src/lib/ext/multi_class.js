@@ -33,7 +33,7 @@ const MultiClassError = new Error();
  */
 function remapScopeNames(mode, regexes) {
   let offset = 0;
-  const scopeNames = mode.className;
+  const scopeNames = mode.scope;
   /** @type Record<number,boolean> */
   const emit = {};
   /** @type Record<number,string|true> */
@@ -47,7 +47,7 @@ function remapScopeNames(mode, regexes) {
   // we use _emit to keep track of which match groups are "top-level" to avoid double
   // output from inside match groups
   mode._emit = emit;
-  mode.className = positions;
+  mode.scope = positions;
 }
 
 /**
