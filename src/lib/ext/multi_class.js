@@ -61,8 +61,8 @@ export function MultiClass(mode) {
     throw MultiClassError;
   }
 
-  if (typeof mode.className !== "object" || mode.className == null) {
-    logger.error("className must be object");
+  if (typeof mode.scope !== "object" || mode.scope == null) {
+    logger.error("scope/className must be object");
     throw MultiClassError;
   }
 
