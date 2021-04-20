@@ -215,6 +215,72 @@ export default function(hljs) {
     contains: PARAMS_CONTAINS
   };
 
+  const ZTAG = {
+    // className: "ztag",
+    // begin: /(?=<[A-Za-z-]+)/,
+    begin: [
+      /</,/[A-Za-z-]+/
+    ],
+    className: {1: "tag", 2:"name"},
+    contains: [
+      { match: />/,
+        className: "tag",
+        starts: {
+          contains: [
+            { match: /[^<]+/ }
+          ]
+        }
+      },
+      // {
+      //   begin: [
+      //     /</,
+      //     /[A-Za-z-]+/
+      //   ],
+      //   className: {
+      //     1: "tag",
+      //     2: "name"
+      //   }
+      // },
+      {
+        match: [
+          /[\w]+/,
+          /=/
+        ],
+        className: { 1: "attr" }
+      },
+      {
+        className: "comment",
+        begin: /\{\/\*/,
+        end: /\*\/\}/
+      },
+      {
+        begin: /\{/,
+        subLanguage: "javascript",
+        end: /\}/
+      },
+      hljs.QUOTE_STRING_MODE,
+      hljs.APOS_STRING_MODE,
+      hljs.C_LINE_COMMENT_MODE,
+
+    ],
+    end: regex.lookahead(/<\/[A-Za-z-]+>|\/>/),
+    starts: {
+      contains: [
+        { match: /\/>/, className: "tag", endsParent: true },
+        { match:
+          [/<\//, /[A-Za-z-]+/,/>/],
+          className: {1: "tag", 2: "name", 3:"tag"},
+          endsParent: true },
+      ]
+    },
+    // TODO: we could do this (not sure it's a good idea)
+    // but first we'd need multi-match and class tagging on `end` which we
+    // currently do not have
+    // 'on:begin': (m, resp) => { resp.data._beginMatch = m[1]; },
+    // 'on:end': (m, resp) => { if (resp.data._beginMatch !== m[1]) resp.ignoreMatch(); }
+  };
+  ZTAG.contains[0].starts.contains.push(ZTAG);
+
   return {
     name: 'Javascript',
     aliases: ['js', 'jsx', 'mjs', 'cjs'],
@@ -321,27 +387,28 @@ export default function(hljs) {
             end: /\s*/,
             skip: true
           },
-          { // JSX
-            variants: [
-              { begin: FRAGMENT.begin, end: FRAGMENT.end },
-              {
-                begin: XML_TAG.begin,
-                // we carefully check the opening tag to see if it truly
-                // is a tag and not a false positive
-                'on:begin': XML_TAG.isTrulyOpeningTag,
-                end: XML_TAG.end
-              }
-            ],
-            subLanguage: 'xml',
-            contains: [
-              {
-                begin: XML_TAG.begin,
-                end: XML_TAG.end,
-                skip: true,
-                contains: ['self']
-              }
-            ]
-          }
+          ZTAG,
+          // { // JSX
+          //   variants: [
+          //     { begin: FRAGMENT.begin, end: FRAGMENT.end },
+          //     {
+          //       begin: XML_TAG.begin,
+          //       // we carefully check the opening tag to see if it truly
+          //       // is a tag and not a false positive
+          //       'on:begin': XML_TAG.isTrulyOpeningTag,
+          //       end: XML_TAG.end
+          //     }
+          //   ],
+          //   subLanguage: 'xml',
+          //   contains: [
+          //     {
+          //       begin: XML_TAG.begin,
+          //       end: XML_TAG.end,
+          //       skip: true,
+          //       contains: ['self']
+          //     }
+          //   ]
+          // }
         ],
         relevance: 0
       },
