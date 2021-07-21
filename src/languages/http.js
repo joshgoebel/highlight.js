@@ -13,7 +13,7 @@ export default function(hljs) {
   const HEADER_NAME = /[A-Za-z][A-Za-z0-9-]*/;
   const HEADER = {
     className: 'attribute',
-    begin: regex.concat('^', HEADER_NAME, '(?=\\:\\s)'),
+    begin: regex.concat('^', HEADER_NAME, '(?=:\\s)'),
     starts: {
       contains: [
         {

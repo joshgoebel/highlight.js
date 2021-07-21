@@ -31,9 +31,10 @@ export function compileLanguage(language) {
    * @param {boolean} [global]
    */
   function langRe(value, global) {
+    // console.log(value);
     return new RegExp(
       regex.source(value),
-      'm' + (language.case_insensitive ? 'i' : '') + (global ? 'g' : '')
+      'um' + (language.case_insensitive ? 'i' : '') + (global ? 'g' : '')
     );
   }
 

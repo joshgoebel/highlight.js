@@ -434,7 +434,7 @@ export default function(hljs) {
       ...Swift.precedencegroupKeywords,
       ...Swift.literals
     ],
-    end: /}/
+    end: /\}/
   };
 
   // Add supported submodes to string interpolation.
